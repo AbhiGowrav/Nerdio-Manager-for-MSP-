@@ -99,7 +99,7 @@ InstallChocolatey
 Sleep 60
 
 #ENABLE VM SHADOW
-InstallCloudLabsShadow $ODLID $InstallCloudLabsShadow
+#InstallCloudLabsShadow $ODLID $InstallCloudLabsShadow
 CreateCredFile $AzureUserName $AzurePassword $AzureTenantID $AzureSubscriptionID $DeploymentID
 #Enable Cloudlabs Embedded Shadow Feature
 Enable-CloudLabsEmbeddedShadow $vmAdminUsername $trainerUserName $trainerUserPassword
