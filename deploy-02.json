@@ -1,0 +1,59 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+      "_securityGuid": {
+        "type": "securestring",
+        "defaultValue": "[newGuid()]",
+        "metadata": {
+          "description": "Please do not change the value of this parameter."
+        }
+      },
+      "applicationResourceName": {
+        "type": "string",
+        "defaultValue": "NMMAPP"
+      },
+      "managedResourceGroupName": {
+        "defaultValue": "NMM-RESOURCES-RG",
+        "type": "String"
+      }
+    },
+    "variables": {
+      "managedResourceGroupId": "[if(empty(parameters('managedResourceGroupName')),concat(subscription().id,'/resourceGroups/',take(concat(resourceGroup().name,'-',uniquestring(resourceGroup().id),uniquestring(parameters('applicationResourceName'))),90)),concat(subscription().id,'/resourceGroups/', parameters('managedResourceGroupName')))]",
+      "managedIdentity": {}
+    },
+    "resources": [
+      {
+        "type": "Microsoft.Solutions/applications",
+        "apiVersion": "2017-09-01",
+        "location": "[resourceGroup().Location]",
+        "kind": "MarketPlace",
+        "identity": "[if(empty(variables('managedIdentity')),json('null'),variables('managedIdentity'))]",
+        "name": "[parameters('applicationResourceName')]",
+        "plan": {
+          "name": "nmm-plan",
+          "product": "nmm",
+          "publisher": "nerdio",
+          "version": "2.5.1"
+        },
+        "properties": {
+          "managedResourceGroupId": "[variables('managedResourceGroupId')]",
+          "parameters": {
+            "location": {
+              "value": "[resourceGroup().location]"
+            },
+            "_artifactsLocation": {
+              "value": "https://catalogartifact.azureedge.net/publicartifacts/nerdio.nmm-1b18a96d-5054-4ac4-b3fa-82ac147a7530-nmm-plan/Artifacts/DefaultTemplate"
+            },
+            "_artifactsLocationSasToken": {
+              "value": ""
+            },
+            "_securityGuid": {
+              "value": "[parameters('_securityGuid')]"
+            }
+          },
+          "jitAccessPolicy": null
+        }
+      }
+    ]
+  }
