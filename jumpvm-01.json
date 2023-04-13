@@ -49,7 +49,7 @@
     "variables": {
       "location": "[resourceGroup().location]",
       "jvmcloudlabsCommon": "[concat(' -AzureUserName ', parameters('AzureUserName'), ' -InstallCloudLabsShadow ', parameters('InstallCloudLabsShadow'), ' -AzurePassword ', parameters('AzurePassword'), ' -AzureTenantID ', variables('AzureTenantID'), ' -AzureSubscriptionID ', variables('AzureSubscriptionID'), ' -ODLID ', parameters('ODLID'), ' -DeploymentID ', parameters('DeploymentID'), ' -jvmadminPassword ', parameters('jvmadminPassword'))]",
-      "Enable-CloudLabsEmbeddedShadow": "[concat(' -vmAdminUsername ', parameters('jvmadminUsername'), ' -trainerUserName ', parameters('trainerUserName'), ' -trainerUserPassword ', parameters('trainerUserPassword'))]",
+      "Enable-CloudLabsEmbeddedShadow": "[concat(' -jvmadminUsername ', parameters('jvmadminUsername'), ' -trainerUserName ', parameters('trainerUserName'), ' -trainerUserPassword ', parameters('trainerUserPassword'))]",
       "AzureSubscriptionID": "[subscription().subscriptionId]",
       "AzureTenantID": "[subscription().tenantId]",
       "jvmvnetName": "vNet",
