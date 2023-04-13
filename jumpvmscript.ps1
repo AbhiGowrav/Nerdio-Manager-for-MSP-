@@ -111,7 +111,7 @@ Install-Module AzureAD -Force
 New-Item -ItemType directory -Path C:\LabFiles
 
 $WebClient = New-Object System.Net.WebClient
-$WebClient.DownloadFile("https://experienceazure.blob.core.windows.net/templates/nerdio/scripts/logontask.ps1","C:\LabFiles\logontask.ps1")
+$WebClient.DownloadFile("https://raw.githubusercontent.com/AbhiGowrav/Nerdio-Manager-for-MSP-/main/logontask.ps1","C:\LabFiles\logontask.ps1")
 
 $LabFilesDirectory = "C:\LabFiles"
 
@@ -139,7 +139,7 @@ Set-AzContext -SubscriptionId $AzureSubscriptionID
 
 $domainName = $AzureUserName.Split("@")[1]
 $VnetName = "aadds-vnet"
-$templateSourceLocation = "https://experienceazure.blob.core.windows.net/templates/nerdio/deploy-01.json"
+$templateSourceLocation = "https://raw.githubusercontent.com/AbhiGowrav/Nerdio-Manager-for-MSP-/main/deploy-01.json"
 
 #Start creating Prerequisites 
 #Register the provider 
@@ -202,7 +202,7 @@ $nerdioresourceGroup = (Get-AzResourceGroup -Name "NMM-*")
 $nerdioresourceGroupName = $nerdioresourceGroup[0].ResourceGroupName 
 $location = $nerdioresourceGroup[0].Location
 
-$nerdiotemplateSourceLocation = "https://experienceazure.blob.core.windows.net/templates/nerdio/deploy-02.json"
+$nerdiotemplateSourceLocation = "https://raw.githubusercontent.com/AbhiGowrav/Nerdio-Manager-for-MSP-/main/deploy-02.json"
 
 #depoy NMM template
 if ($status -eq "Succeeded")
