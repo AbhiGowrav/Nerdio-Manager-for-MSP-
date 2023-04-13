@@ -213,7 +213,7 @@ $nerdiotemplateSourceLocation = "https://raw.githubusercontent.com/AbhiGowrav/Ne
 if ($status -eq "Succeeded")
 {
    $agreementTerms = Get-AzMarketplaceTerms -Name 'nmm-plan' -Product 'nmm' -Publisher 'nerdio' -OfferType 'nmm'
-   Set-AzMarketplaceTerms -Name 'nmm-plan' -Product 'nmm' -Publisher 'nerdio' -Accept  
+   Set-AzMarketplaceTerms -Name 'nmm-plan' -Product 'nmm' -Publisher 'nerdio' -OfferType 'nmm' -Accept  
    New-AzResourceGroupDeployment -ResourceGroupName $nerdioresourceGroupName -TemplateUri $nerdiotemplateSourceLocation -Name "deploynerdio" #Deploy the template
 }
 
