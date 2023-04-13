@@ -261,6 +261,12 @@ $Validstatus="Pending"  ##Failed or Successful at the last step
 $Validmessage="Post Deployment is Pending"
 CloudlabsManualAgent setStatus
 
+. C:\LabFiles\AzureCreds.ps1
+
+$userName = $AzureUserName
+$password = $AzurePassword
+$securePassword = $password | ConvertTo-SecureString -AsPlainText -Force
+$cred = new-object -typename System.Management.Automation.PSCredential -argumentlist $userName, $SecurePassword
 
 #Reset user password  
 Connect-AzureAD -Credential $cred | Out-Null
