@@ -212,8 +212,8 @@ $nerdiotemplateSourceLocation = "https://raw.githubusercontent.com/AbhiGowrav/Ne
 #depoy NMM template
 if ($status -eq "Succeeded")
 {
-   $agreementTerms = Get-AzMarketplaceTerms -Name 'nmm-plan' -Product 'nmm' -Publisher 'nerdio' -OfferType 'nmm'
-   Set-AzMarketplaceTerms -Name 'nmm-plan' -Product 'nmm' -Publisher 'nerdio' -OfferType 'nmm' -Accept  
+   $agreementTerms = Get-AzMarketplaceTerms -Name 'nmm-plan' -Product 'nmm' -Publisher 'nerdio'
+   Set-AzMarketplaceTerms -Name 'nmm-plan' -Product 'nmm' -Publisher 'nerdio' -Terms $agreementTerms -Accept  
    New-AzResourceGroupDeployment -ResourceGroupName $nerdioresourceGroupName -TemplateUri $nerdiotemplateSourceLocation -Name "deploynerdio" #Deploy the template
 }
 
