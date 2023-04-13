@@ -5,7 +5,7 @@ msiexec.exe /i "C:\LabFiles\avdclient.msi" /qn ALLUSERS=2 MSIINSTALLPERUSER=1
 
 
 #Import Common Functions
-$commonscriptpath = "C:\Packages\Plugins\Microsoft.Compute.CustomScriptExtension\1.10.12\Downloads\0\cloudlabs-common\cloudlabs-windows-functions.ps1"
+$commonscriptpath = "C:\Packages\Plugins\Microsoft.Compute.CustomScriptExtension\1.10.*\Downloads\0\cloudlabs-common\cloudlabs-windows-functions.ps1"
 . $commonscriptpath
 sleep 5
 
@@ -47,7 +47,6 @@ $Status = $JsonValue.properties.replicaSets[0].serviceStatus
 }
 Until ($status -eq "Running")
 
-
 if ( $status -eq "Running")
 {
  
@@ -68,10 +67,7 @@ CloudlabsManualAgent setStatus
 #Start the cloudlabs agent service 
 CloudlabsManualAgent Start
 
-
 Stop-Transcript
-
-
 
 #Remove AVD-RG Deployment History
 Remove-AzResourceGroupDeployment -ResourceGroupName AVD-RG -Name deploy-01

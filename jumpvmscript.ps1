@@ -25,6 +25,9 @@ Param (
     $vmAdminUsername,
 
     [string]
+    $jvmadminUsername,    
+
+    [string]
     $jvmadminPassword,
 
     [string]
@@ -95,18 +98,23 @@ InstallChocolatey
 
 Sleep 60
 
-choco install az.powershell
-
 #ENABLE VM SHADOW
 InstallCloudLabsShadow $ODLID $InstallCloudLabsShadow
 CreateCredFile $AzureUserName $AzurePassword $AzureTenantID $AzureSubscriptionID $DeploymentID
 #Enable Cloudlabs Embedded Shadow Feature
 Enable-CloudLabsEmbeddedShadow $vmAdminUsername $trainerUserName $trainerUserPassword
 
-#Install AzureAD Module
+#install AZ-module latest version
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser -Force
 
-Install-PackageProvider -Name NuGet -RequiredVersion 2.8.5.201 -Force
-Install-Module AzureAD -Force
+Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force
+
+Install-Module -Name Az -AllowClobber -Force
+
+sleep 5
+
+#Install AzureAD Module
+Install-Module AzureAD -Force -AllowClobber
 
 New-Item -ItemType directory -Path C:\LabFiles
 
@@ -207,8 +215,8 @@ $nerdiotemplateSourceLocation = "https://raw.githubusercontent.com/AbhiGowrav/Ne
 #depoy NMM template
 if ($status -eq "Succeeded")
 {
-   $agreementTerms = Get-AzMarketplaceTerms -Name 'nmm-plan' -Publisher 'nerdio' -Product 'nmm'
-   Set-AzMarketplaceTerms -Name 'nmm-plan' -Publisher 'nerdio' -Product 'nmm' -Terms $agreementTerms -Accept  
+   $agreementTerms = Get-AzMarketplaceTerms -Name 'nmm-plan' -Product 'nmm' -Publisher 'nerdio' -OfferType 'nmm'
+   Set-AzMarketplaceTerms -Name 'nmm-plan' -Product 'nmm' -Publisher 'nerdio' -Accept  
    New-AzResourceGroupDeployment -ResourceGroupName $nerdioresourceGroupName -TemplateUri $nerdiotemplateSourceLocation -Name "deploynerdio" #Deploy the template
 }
 
