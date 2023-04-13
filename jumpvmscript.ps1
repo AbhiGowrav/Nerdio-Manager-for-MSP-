@@ -22,9 +22,6 @@ Param (
     $InstallCloudLabsShadow,
 
     [string]
-    $vmAdminUsername,
-
-    [string]
     $jvmadminUsername,    
 
     [string]
